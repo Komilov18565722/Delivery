@@ -1,0 +1,136 @@
+html{
+    height: 100%;
+    color: #ffa;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background: linear-gradient(#97856e, #7e1624);
+}
+
+.box{
+    position: absolute;
+    top: 5%;
+    left: 50%;
+    transform: translate(-50%);
+    width: 1250px;
+    height: 90%;
+    padding: 0 20px;
+    background: linear-gradient(#7e1624, #97856e);
+    box-sizing: border-box;
+    border-radius: 10px;
+    text-align: center;
+    /* overflow-y: scroll; */
+    float: left;
+}
+
+
+.orders, .order_detail{
+    position: relative;
+    top: 0;    
+    left: 25%;
+    transform: translate(-50%);
+    width: 500px;
+    height: 87%;
+    margin: 10px 30px;
+    padding: 10px;
+    background: linear-gradient(#a3845a, #7e1624);
+    box-sizing: border-box;
+    border-radius: 10px;
+    text-align: center;
+    overflow-y: auto;
+    float: left;
+}
+
+.orders::-webkit-scrollbar, .order_detail::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+  }
+
+.nav{
+    margin: 0;
+    border-bottom: 2px solid #d8b769 ;
+}
+ 
+
+.orders{
+    text-align: center;
+    font-family: sans-serif;
+}
+.order{
+    text-align: left;
+    background-color: rgb(78, 23, 78);
+    color: #ffa;
+    border-radius: 15px;
+    padding: 10px;
+    position: relative;
+    margin-bottom: 15px;
+
+    
+}
+.order ol{
+    margin: 3px;
+}
+
+
+.orders h1{
+    /* position: fixed; */
+    /* width: auto; */
+    height: 30px;
+    top: 0;
+    margin:10;
+    padding: 5px;
+}
+
+.order_detail li{
+    text-align: left;
+    padding: 5px;
+    margin: 5px;
+    font-size: 16px;
+}
+
+.order_detail button{
+    color: #ffa;
+    background-color: blue;
+    outline: none;
+    border: none;
+    border-radius: 15px;
+    padding: 10px;
+    font-size: 18px;
+    margin-top: 15px;
+}
+
+.order_detail button:hover, .order:hover{
+    cursor: pointer;
+    border:#d8b769 solid 3px;
+    position: static;
+    transition: 0.2s;
+
+}
+
+.active-order{
+    cursor: pointer;
+    border:#725616 solid 3px;
+    position: static;
+    transition: 0.2s;
+}
+
+.lol{
+    visibility: visible;
+}
+a{
+    text-decoration: none;
+}
+
+.sorting{
+    width: 100%;
+    background-color: black;
+    text-align: center;
+    font-size: 16px;
+}
+.sorting a{
+    width: 33.3%;
+    font-size: 16px;
+    background-color: #ffa;
+}

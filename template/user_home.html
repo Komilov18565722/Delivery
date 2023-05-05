@@ -1,0 +1,177 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+    <link rel="stylesheet" href="{% static 'css/user_home.css' %}">
+    <title>Bosh sahifa</title>
+</head>
+<body>
+    <div class="box">
+        <div class="nav">
+            <h3>{{user.first_name}} {{user.last_name}} {{user.username}}</h3>
+            <div class="logout">
+                <!-- <i class="fa-solid fa-right-from-bracket fa-beat-fade"></i> -->
+                <a href="{% url 'logout' %}">Chiqish</a>
+            </div>
+        </div>
+        <div class="new-order">
+          <img onclick="myfunction1()" title="Buyurtma berish" class="add" src="{% static '/icons/plus.png'%}" alt="Add new order">
+        </div>
+                
+        <div class="modal" id="modal"> 
+            
+            <div class="login-box">
+                <a href=""><button id="close-btn" class="btn-x" onclick="myfunction()">X</button></a>
+                
+                {%if data.error_status > 0  %}
+                    <script>document.getElementById('modal').style.visibility = 'visible';</script>
+                {% endif %}
+                {% if data.error_status == 0 %}
+                    <script>document.getElementById('modal').style.visibility = 'visible';</script>
+                    <h2 style="color: green;">Muvaffaqiyatli saqlandi</h2>
+                {%else%}
+                <form method="post">{% csrf_token %}
+                <!-- klint: FIO, yuk turi, og'irligi, joylashgan joyi, olib boriladigan joyi, tel raqami -->
+                    <h2>Buyurtma berish</h2>
+                    <div class="user-box">
+                        <input type="text" name="type" value="{{data.order_type}}" required>
+                        <label>Buyurtmangiz turi</label>
+                        {% if data.error_status == 1 %}
+                        <span class="error"> Kamida 3 ta belgi qatnashishi kerak</span>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="user-box">
+                        <input type="text" name="weight" value="{{data.weight}}" required>
+                        <label>Buyurtmangizni taxminiy vazni</label>
+                        {% if data.error_status == 2 %}
+                            <span class="error"> 0 dan katta bo`lishi kerak</span>
+                        {% endif %}
+                    </div>
+        
+                    <div class="user-box">
+                        <img title="Texnik nososlik sababli ishlamayapti" src="data:image/png;base64,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" alt="LOcation" style="width: 40px; height: 40px; top: 0; right: 0; position: absolute;">
+                        <input type="text" name="start_location" value="{{data.start_location}}" required>
+                        <label>Buyurtmangiz qayerda</label>
+                        {% if data.error_status == 3 %}
+                            <span class="error"> Kamida 5 ta belgi qatnashishi kerak</span>
+                        {% endif %}
+                    </div>
+                    
+                    
+                    <div class="user-box">
+                    <img title="Texnik nososlik sababli ishlamayapti" src="data:image/png;base64,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" alt="LOcation" style="width: 40px; height: 40px; top: 0; right: 0; position: absolute;">
+                        <input type="text" name="finished_location" value="{{data.finished_location}}" required>
+                        <label>Buyurtmangizni qayerga</label>
+                        {% if data.error_status == 4 %}
+                            <span class="error"> Kamida 5 ta belgi qatnashishi kerak</span>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- <div class="user-box">
+                        <input type="text" name="price" value="{{data.price}}" required>
+                        <label>Yo`l haqqi</label>
+                        {% if data.error_status == 5 %}
+                            <span class="error">0 dan katta bo`lishi kerak (so`m da)</span>
+                        {% endif %}
+                    </div>
+
+                    <div class="user-box">
+                        <input type="text" name="period" value="{{data.period}}" required>
+                        <label>Buyurtmangiz qancha vaxtda borishi kerak</label>
+                        {% if data.error_status == 6 %}
+                            <span class="error">0 dan katta bo`lishi kerak (minutda)</span>
+                        {% endif %}
+                    </div>
+         -->
+                    <div class="btn1"> 
+                        <a href="{% url 'user_home' %}"><button class="btn" type="submit">Saqlash</button><br></a>
+                    </div>
+                </form>
+                {%endif%}
+                
+
+            </div>
+        </div>
+        <div class="orders">
+            
+           
+            {% for order in orders %}
+                {% if order.status == 1 %}
+                    <div id = "{{order.id}}" class="order" style="color: #ffa;" >
+                        <h3>Shu haydovchi sizni buyurtmangizni olmoqchi</h3>
+                        <h4>{{ work.order.id }}</h4>
+                        <ul>
+                            <li>Taklif qilinayotgan narx: {{order.delivery_fee}}</li>
+                            <li>Eltish muddati: {{order.period}}</li>
+
+                        </ul>
+                        {% for item in work %}
+
+                            {% if item.order.id == order.id %}
+                                <h4>{{item.driver}}</h4>
+                                    <a href="{% url 'user_home1' order.id 1 %}"><button class="btn" type="submit">Ruxsat berish</button></a>
+                                    
+                                    <a><button class="btn" type="button" onclick='remove_true();'>Rad etish</button></a>
+                                    <div style="display: none;" id="remove_modal">                                    
+                                        <form method="get">
+                                        <!-- klint: FIO, yuk turi, og'irligi, joylashgan joyi, olib boriladigan joyi, tel raqami -->
+                                            <h2>Nima uchun rad etyapsiz</h2>
+                                            <input style="display: none;" type="text" name ='order_id' value="{{order.id}}">
+                                            
+                                            <input style="display: none;" type="text" name ='driver_id' value="{{ item.driver.id }}">
+
+                                            <textarea name="order_feedback" style="background-color: chocolate; padding: 5px; font-size: x-large; outline: none; width : 300px;" cols="20" rows="5" required></textarea>
+                                            <br><a href="{% url 'user_home1' order.id 0 %}"><button class="btn" style="margin-top: 3px;" type="submit">Jo`natish</button></a>
+                                        </form>
+                                        
+                                    </div>
+                            {% endif %}
+            {% endfor %}
+                        
+                
+                {% elif order.status == 2 %}
+                <div id = "{{order.id}}" class="order" style="color: #ffa;" >
+                    <h3>Haydovchi buyurtmangizni olish uchun yo`lda</h3>
+                    
+                
+                {% elif order.status == 3 %}
+                <div id = "{{order.id}}" class="order" style="color: #ffa;" >
+                    <h3>Buyurtmangiz yo`lda</h3>
+                    
+                {% elif order.status == 4 %}
+                <div id = "{{order.id}}" class="order" style="color: #ffa; background-color: rgb(80, 15, 141);" >
+                    <h3>Buyurtmangiz manzilga yetib keldi</h3>
+                    
+                
+                {% elif order.status == 0 %}
+                    <div id = "{{order.id}}" class="order" style="background-color: rgb(55, 94, 55);">
+                    
+                {% else %}
+                    <div id = "{{order.id}}" class="order" style="background-color: rgb(231, 134, 78);">
+                {% endif %}
+                    
+                    <ul>
+                    
+                        <li>Turi: {{order.order_type}}</li>
+                        <li>Og`irligi: {{order.order_weight}}</li>
+                        <li>Boshlanish manzil: {{order.start_location}}</li>
+                        <li>Oxirgi manzi: {{order.finished_location}}</li>
+                        <li>Sana: {{order.date}}</li> 
+                        <!-- <li>Muddati: {{order.period}} min</li> --> 
+                    </ul>
+                    
+                </div>
+            {%endfor%}
+            
+        </div>
+    </div>
+    
+    <script src="{% static 'JS/script.js'%}"></script>
+</body>
+</html>

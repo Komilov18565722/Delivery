@@ -1,0 +1,74 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+    <title>Ro`yxatdan o`tish</title>
+</head>
+<body>
+    <div class="login-box">
+        <form method="post">{% csrf_token %}
+            
+            <h2>Ro`yxatdan o`tish</h2>
+            <div class="user-box ">
+                <input type="text" value="{{ data.username }}"  name="username" required>
+                <label >Telefon raqam</label>
+                {% if data.error_status == -1 %}
+                    <span class="error"> Bu telefon raqami allaqachon ro`yxatga olingan</span>
+                {% endif %}
+                {% if data.error_status == 0 %}
+                    <span class="error"> Telefon raqam xato</span>
+                {% endif %}
+            </div>
+            
+               
+            <div class="user-box">
+                <input type="text" value="{{ data.first_name }}" name="first_name" required>
+                <label>Ism</label>
+                {% if data.error_status == 1 %}
+                    <span class="error"> Ismingiz kamida 3 ta belgidan iborat bo`lishi kerak</span>
+                {% endif %}
+            </div>
+            
+            <div class="user-box">
+                <input type="text" name="last_name" value="{{ data.last_name }}" required>
+                <label>Familiya</label>
+                {% if data.error_status == 2 %}
+                    <span class="error"> Familiyandiz kamida 3 ta belgidan iborat bo`lishi kerak</span>
+                {% endif %}
+            </div>    
+
+            <div class="user-box">
+                <input type="text" name="car_type" value="{{ data.car_type }}" required>
+                <label>Mashinangizni nomi</label>
+                {% if data.error_status == 4 %}
+                    <span class="error"> Kamida 3 ta belgidan iborat bo`lishi kerak</span>
+                {% endif %}
+            </div>    
+
+            <div class="user-box">
+                <input type="text" name="car_number" placeholder="XX XXXXXX" value="{{ data.car_number }}" required>
+                <label>Mashinangizni nomeri</label>
+                {% if data.error_status == 5 %}
+                    <span class="error"> Xato kiritildi </span>
+                {% endif %}
+            </div>    
+            
+            <div class="user-box">
+                <input type="password" autocomplete="new-password" name="password" value="{{ data.password}}" required>
+                <label>Parol</label>
+                {% if data.error_status == 3 %}
+                    <span class="error"> Parolda kamida 8 ta belgi bo`lishi kerak</span>
+                {% endif %}
+            </div>
+            
+            <div class="btn1">
+                <button class="btn" type="submit">Saqlash</button><br>
+                <a href="{% url 'login' %}">Menda akkaunt bor</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

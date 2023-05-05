@@ -1,0 +1,150 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+    <link rel="stylesheet" href="{% static 'css/driver_home.css' %}">
+    <title>Driver Home</title>
+</head>
+<body>
+    <div class="box">
+        <div class="nav">
+            <h3>{{user.first_name}} {{user.last_name}} {{user.username}}</h3>
+            <div class="logout">
+                <!-- <i class="fa-solid fa-right-from-bracket fa-beat-fade"></i> -->
+                <a href="{% url 'logout' %}">Chiqish</a>
+            </div>
+            <div class="back">
+                <!-- <i class="fa-solid fa-right-from-bracket fa-beat-fade"></i> -->
+                <a href="{% url 'choose' %}">Orqaga</a>
+            </div>
+        </div>
+        
+        <div class="orders" >    
+            <h1>Buyurtmalar ro`yxati</h1>
+            <!-- <div class="sorting">
+                <a href="#new">New</a>
+                <a href="#process">In process</a>
+                <a href="#archive">Archive</a>
+            </div> -->
+            {% for order in data %}
+            
+                <a style="text-decoration: none;" href="{% url 'driver_home_detail' order.id %}">
+                    {% if order.status == 1 %}
+                    <div id = "{{order.id}}" class="order" >
+                    {% elif order.status == 0   %}
+                        <div id = "{{order.id}}" class="order" style="background-color: rgb(55, 94, 55);">
+                    {% elif order.status == 2 %}
+                        <div id = "{{order.id}}" class="order" style="background-color: rgb(122, 31, 31);">
+                    {% elif order.status == 3 %}
+                        <div id = "{{order.id}}" class="order" style="background-color: rgb(70, 58, 99);">  
+                        
+                    {% else %}
+                        <div id = "{{order.id}}" class="order" style="background-color: rgb(231, 134, 78);">
+                    {% endif %}
+                            <ul>   
+                                <ol>Buyurtmachi: {{order.user.first_name}}</ol>
+                                <ol>Turi: {{order.order_type}}</ol>
+                                <ol>Vaxti: {{order.date}}</ol>
+                            </ul>
+                    </div>
+                </a>
+                
+            {%endfor%}
+            
+        </div>
+
+        <div class="order_detail">  
+            {% if feedback != ''  %}
+            <!--      -->
+                <h1 style="text-align: center;" >Rad etildi</h1>
+            {% endif %}
+            {% if status %}
+            <h1 id="customer"> {{order.user.first_name}} {{order.user.last_name}}<h1></h1>
+            <h2 id="phone_number"> {{order.user}} </h2>  
+            {% if order.status == 1 %}
+                <form method="post">{% csrf_token %}
+                    <h4>So`rovingiz buyurtmachiga yuborildi</h4>
+                    <input style="visibility: hidden;" type="text" name = "url1" value="{{order.id}}"><br>
+                </form> 
+            {% elif order.status == 4 %}
+            <hr>
+                <h1>Buyurtma muvaffaqiyatli yetkazildi</h1>
+            <ul>
+                <h2 style="text-align: center;">Hissobot</h2>
+                <li>Sarflanga vaxt(minutes): {{work.diff_times}} </li>
+                    
+                <li>Ish haqqi(summ): {{order.delivery_fee}}</li>
+            </ul>
+            {% endif %}
+            <form method="post">{% csrf_token %}
+                <ul>   
+                    <li id="type">Turi: {{order.order_type}}</li>
+                    <li id="weight">Og`irligi: {{order.order_weight}}</li>
+                    <li id="start_location">Buyurtma manzili: {{order.start_location}}</li>
+                    <li id="finished_location">Oxirgi manzili: {{order.finished_location}}</li>
+                    {% if order.delivery_fee == '' and feedback == '' %}
+                    
+                    <li>
+                        <div class="user-box">
+                            <input type="text" name="price" value="{{ data.price}}" required>
+                            <label>Yo`l haqqi</label>
+                        </div>
+                    </li>
+                    {% else %}
+                    <li id="price">Yo`l haqqi: {{order.delivery_fee}}</li>
+
+                    {% endif %}
+                    
+                    {% if order.period == '' and feedback == '' %}
+                    
+                    <li>
+                        <div class="user-box">
+                            <input type="text" name="period" value="{{ data.price}}" required>
+                            <label>Ketadigan vaxt</label>
+                        </div>
+                    </li>
+                    {% else %}
+                    <li id="period">Ketadigan vaxt:{{order.period}}</li>
+
+                    {% endif %}
+           
+                    {% if feedback != '' %}
+                    <!--      -->
+                        <h2 style="text-align: center;" >Sabab</h2>
+                        <p style="float: left;">{{feedback}}</p>
+                    {% endif %}
+
+                </ul>
+            {% if order.status == 0 and feedback == '' %}    
+                <input style="visibility: hidden;" type="text" name = "url" value="{{order.id}}"><br>
+                <a href="{% url 'driver_home' %}"><button type="submit">Taklif berish</button></a>
+            
+    
+            {% elif order.status == 2 %}
+            
+                <input style="visibility: hidden;" type="text" name = "url1" value="{{order.id}}"><br>
+                <button type="submit">Men yuklarni olib, yo`lga chiqdim</button>
+            
+
+            {% elif order.status == 3 %}
+            
+                <input style="visibility: hidden;" type="text" name = "finish" value="{{order.id}}"><br>
+                <a href="{% url 'driver_home' %}"><button type="submit">Yetib keldim</button></a>
+                {% endif %}
+            </form> 
+                
+            {% else %}
+            <h1 id="customer"> Buyurtmalardan birini tanlang... <h1>
+            
+            {% endif %}       
+        </div>
+    </div>
+
+    <script src="{% static 'JS/script.js'%}"></script>
+</body>
+</html>
