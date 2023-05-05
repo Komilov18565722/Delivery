@@ -1,0 +1,93 @@
+html{
+    height: 100%;
+    
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background: linear-gradient(#46210f, #e2e2ec);
+}
+
+.login-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-80%, -50%);
+    width: 400px;
+    padding: 40px;
+    background-color: rgba(0, 0, 0, 0.6);
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+
+.login-box h2{
+    color: #fff;
+    text-align: center;
+    margin: 0 0 30px 0;
+    padding: 0;
+}
+
+.login-box .user-box{
+    position: relative;
+}
+
+.login-box .user-box input{
+    width: 100%;
+    padding: 10px 0 ;
+    font-size: 16px;
+    color: #fff;
+    border: none;
+    background: transparent;
+    border-bottom: 2px solid #ffa;
+    outline: none;
+}
+
+.login-box .user-box label{
+    position: absolute;
+    color: #fff;
+    top: 0;
+    left: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    pointer-events: none;
+    transition: 0.5s;
+    margin-top: 30px;
+}
+
+.login-box .user-box input:focus ~label,
+.login-box .user-box input:valid ~label{
+    top: -20px;
+    left: 0;
+    color: #438bf7;
+    font-size: 14px;
+}
+
+.btn1{
+    width: 100%;
+    text-align: center;
+}
+.btn{
+    color:#fff;
+    background-color: #052d52;
+    width: 40%;
+    font-size: 16px;
+    padding: 10px;
+    outline: none;
+    border: none;
+    border-radius: 8px;
+    margin-bottom: 5%;
+}
+.btn1 a{
+    color: #ffa;
+    padding: 3px;
+    font-size: 12px;
+}
+
+.error{
+    max-height: 30px;
+    font-size: 25px;
+    transition: 1s;
+    color: rgb(196, 24, 24);
+}

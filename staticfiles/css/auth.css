@@ -1,0 +1,115 @@
+html{
+    height: 100%;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background: linear-gradient(#97856e, #7e1624);
+}
+
+.login-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    padding: 40px;
+    background-color: rgba(0, 0, 0, 0.6);
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+
+.login-box h2{
+    color: #fff;
+    text-align: center;
+    margin: 0 0 30px 0;
+    padding: 0;
+}
+
+.user-box{
+    position: relative;
+}
+
+.user-box input{
+    width: 100%;
+    padding: 10px 0 ;
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 30px;
+    border: none;
+    background: transparent;
+    border-bottom: 2px solid #ffa;
+    outline: none;
+}
+
+.user-box label{
+    position: absolute;
+    color: #fff;
+    top: 0;
+    left: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    pointer-events: none;
+    transition: 0.5s;
+}
+
+.user-box input:focus ~label,
+.user-box input:valid ~label{
+    top: -20px;
+    left: 0;
+    color: #438bf7;
+    font-size: 14px;
+}
+
+
+.logout a{
+    float: right;
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color :#ffa;
+}
+
+.back a{
+    float: right;
+    position: absolute;
+    top: 20px;
+    left: 30px;
+    color :#ffa;
+}
+
+.btn1{
+    width: 100%;
+    text-align: center;
+}
+.btn{
+    color:#fff;
+    background-color: #052d52;
+    width: 40%;
+    font-size: 16px;
+    padding: 10px;
+    outline: none;
+    border: none;
+    border-radius: 8px;
+    margin-bottom: 5%;
+}
+.btn:hover{
+    cursor: pointer;
+}
+.btn1 a{
+    color: #ffa;
+    padding: 3px;
+    font-size: 12px;
+}
+
+.error{
+    position: relative;
+    max-height: 30px;
+    font-size: 12px;
+    transition: 1s;
+    color: rgb(219, 39, 23);
+    top: -20px;
+}
+
